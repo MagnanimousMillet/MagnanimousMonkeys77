@@ -4,10 +4,10 @@ CREATE DATABASE IF NOT EXISTS thumbscheck;
 
 USE thumbscheck;
 
-DROP TABLE users;
-DROP TABLE thumbs;
-DROP TABLE questions;
-DROP TABLE lectures;
+-- DROP TABLE users;
+-- DROP TABLE thumbs;
+-- DROP TABLE questions;
+-- DROP TABLE lectures;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
@@ -51,6 +51,7 @@ INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Mike", "Cla
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Chris", "Aaker", "caaker.0@gmail.com", "STUDENT");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Robs", "Rent", "Stlezinrent@gmail.com", "INSTRUCTOR");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Shyan", "Instructor", "shyankashani1@gmail.com", "INSTRUCTOR");
+INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Saloni", "Shah", "saloni.shah281@gmail.com", "INSTRUCTOR");
 
 
 /*  Execute this file from the command line by typing:

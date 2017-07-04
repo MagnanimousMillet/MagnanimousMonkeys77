@@ -2,14 +2,18 @@ var mysql = require('mysql');
 
 var pool  = mysql.createPool({
   connectionLimit : 10,
-  host     : process.env.DB_HOST || 'localhost',
-  user     : process.env.DB_USERNAME || 'root',
-  password : process.env.DB_PASSWORD || 'plantlife',
-  database : process.env.DB_NAME || 'thumbscheck'
+  // host     : process.env.DB_HOST || 'localhost',
+  // user     : process.env.DB_USERNAME || 'root',
+  // password : process.env.DB_PASSWORD || '',
+  // database : process.env.DB_NAME || 'thumbscheck'
+  host     : 'localhost',
+  user     : 'root',
+  password :  '',
+  database : 'thumbscheck'
 });
 
 
-console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
+//console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
 
 exports.getUserType = function(gmail) {
   return new Promise ((resolve, reject) => {
