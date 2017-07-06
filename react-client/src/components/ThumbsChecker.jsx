@@ -21,9 +21,15 @@ class ThumbsChecker extends React.Component {
 					thumbValue={this.props.thumbValue}
 				/>
 				{this.props.countdown !== 0
-					? <Countdown
+					? <div className="col-xs-12 text-center"><Countdown
 							countdown={this.props.countdown}
 						/>
+					<div
+						className="btn btn-lg btn-danger"
+						onClick={this.props.interrupt}
+						>
+						End Query
+					</div></div>
 					: <div className="col-xs-12 text-center">
 						<div
 								className="btn btn-lg btn-danger"

@@ -142,17 +142,17 @@ exports.addStudent = function(first, last, gmail) {
 /* Section
 */
 
-exports.asyncTimeout = function(time, callback) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let results = 'no callback';
-      if (callback) {
-        results = callback();
-      }
-      resolve(results);
-    }, time || 1000);
-  });
-}
+// exports.asyncTimeout = function(time, callback) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       let results = 'no callback';
+//       if (callback) {
+//         results = callback();
+//       }
+//       resolve(results);
+//     }, time || 1000);
+//   });
+// }
 
 /* Test Functions
 

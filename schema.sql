@@ -4,10 +4,10 @@ CREATE DATABASE IF NOT EXISTS thumbscheck;
 
 USE thumbscheck;
 
--- DROP TABLE users;
--- DROP TABLE thumbs;
--- DROP TABLE questions;
--- DROP TABLE lectures;
+DROP TABLE users IF EXISTS users;
+DROP TABLE thumbs IF EXISTS thumbs;
+DROP TABLE questions IF EXISTS questions;
+DROP TABLE lectures IF EXISTS lectures;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,

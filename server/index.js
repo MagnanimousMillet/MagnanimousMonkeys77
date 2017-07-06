@@ -72,16 +72,24 @@ app.post('/checkthumbs', (req, res) => {
     //Emit the new question to students here
     io.emit('checkingThumbs', { questionId: questionId });
     //This will add thumbsdata in the db after the question ends
-    db.asyncTimeout(32000, () => {
-      for (let student in thumbs.students) {
-        //console.log(`${thumbs.students[student].gmail}, ${thumbs.questionId}, ${thumbs.students[student].thumbValue}`);
-        db.createThumbData(thumbs.students[student].gmail, thumbs.questionId, thumbs.students[student].thumbValue);
-      }
-      db.addAvgThumbForQuestion(questionId, thumbs.getAverageThumbValue());
-    });
+
+    // setTimeout(() => {
+
+    // }, 3200);
+
     //send the response to the teacher
     res.send({ questionId: questionId });
-  })
+    res.end();
+  });
+})
+
+app.post('/interrupt', (req, res) => {
+  io.emit('interrupt', {questionId: req.query.question_id});
+  for (let student in thumbs.students) {
+    //console.log(`${thumbs.students[student].gmail}, ${thumbs.questionId}, ${thumbs.students[student].thumbValue}`);
+    db.createThumbData(thumbs.students[student].gmail, thumbs.questionId, thumbs.students[student].thumbValue);
+  }
+  db.addAvgThumbForQuestion(questionId, thumbs.getAverageThumbValue());
 })
 
 app.post('/endLecture', (req, res) => {
