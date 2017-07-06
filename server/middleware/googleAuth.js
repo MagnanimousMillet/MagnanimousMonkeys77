@@ -1,7 +1,7 @@
 var GoogleAuth = require('google-auth-library');
 
 var auth = new GoogleAuth;
-var client = new auth.OAuth2('745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com', '', '');
+var client = new auth.OAuth2('745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com','S29-kguq_cm1Bpr2owhz56_N', 'https://check-thumbs.herokuapp.com/');
 
 
 
