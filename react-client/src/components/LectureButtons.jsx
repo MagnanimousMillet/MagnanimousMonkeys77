@@ -30,12 +30,6 @@ class LectureButtons extends React.Component {
     })
   }
 
-  onChange(event) {
-  	this.setState({
-  		question: event.target.value
-  	})
-  }
-
   stopRecording() {
     this.recognition.onend = () => console.log('ended');
     this.recognition.stop();
@@ -44,22 +38,32 @@ class LectureButtons extends React.Component {
   startRecording() {
     this.setState({
       question: ''
-    }, () => { 
-      var index = 0;
-      this.recognition = new webkitSpeechRecognition();
-      this.recognition.continuous = true;
-      this.recognition.interimResults = true;
-      this.recognition.start();
-      this.recognition.onstart = () => console.log('hello');
-      this.recognition.onspeechend = () => console.log('woah');
-      this.recognition.onresult = (event) => {
+    })
+    this.recognition = new webkitSpeechRecognition();
+    this.recognition.continuous = true;
+    this.recognition.interimResults = true;
+    this.recognition.start();
+    this.recognition.onstart = () => console.log('hello');
+    this.recognition.onresult = (event) => {
+      var final = '';
+      var interim = '';
+      for (var index = 0; index < event.results.length; index++) {
         if (event.results[index].isFinal) {
-          this.setState({
-            question: this.state.question += event.results[index]['0'].transcript
-          }, () => {index++})
+          final += event.results[index][0].transcript;
+        } else {
+          interim += event.results[index][0].transcript
         }
       }
-    })
+      this.setState({
+        question: final + interim
+      })
+    }
+  }
+
+  onChange(event) {
+  	this.setState({
+  		question: event.target.value
+  	})
   }
 
   onThumbsCheck () {
@@ -89,6 +93,10 @@ class LectureButtons extends React.Component {
             placeholder="Enter question..."
             onChange={this.onChange.bind(this)}
           />
+          {this.state.hasMicrophone
+          	? <img onClick={this.onRecord.bind(this)} className="btn-mic" src="ios-9-siri-icon-768x766.png"></img>
+          	: ''
+          }
 					<div
 						className="btn btn-lg btn-success"
 						onClick={this.onThumbsCheck.bind(this)}>
