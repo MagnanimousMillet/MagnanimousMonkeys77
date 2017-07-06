@@ -13,7 +13,7 @@ var pool  = mysql.createPool({
   host     : 'localhost',
   user     : 'root',
   // password : 'plantlife',
-  database : 'thumbscheck'
+  database: 'thumbscheck'
 });
 
 

@@ -1,36 +1,36 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 class LectureStarter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    	name: ''
+      name: ''
     };
   }
 
   handleChange (event) {
-  	this.setState({
-  		name: event.target.value
-  	});
+    this.setState({
+      name: event.target.value
+    });
   }
 
   onLectureStart () {
     axios({
-	    method: 'post',
-	    url: '/lecture',
-	    params: {
-	      name: this.state.name
-	    }
-	  }).then((response) => {
-  		this.props.startLecture(response.data.lectureId);
-	  }).catch((error) => {
-	  	console.log(error);
-	  })
+      method: 'post',
+      url: '/lecture',
+      params: {
+        name: this.state.name
+      }
+    }).then((response) => {
+      this.props.startLecture(response.data.lectureId);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
-	render () {
-  	return (
+  render () {
+    return (
       <div className="row text-center">
         <div className="col-xs-12 text-center">
           <input
@@ -42,15 +42,15 @@ class LectureStarter extends React.Component {
           />
         </div>
         <div className="col-xs-12 text-center">
-        	<div
+          <div
             className="btn btn-lg btn-success"
             onClick={this.onLectureStart.bind(this)}>
             Start Lecture
           </div>
         </div>
       </div>
-  	)
-	}
+    )
+  }
 }
 
-export default LectureStarter
+export default LectureStarter;

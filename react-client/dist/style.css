@@ -24,10 +24,12 @@
 }
 
 .btn-success {
+  margin-top: 10vh !important;
   background-color: limegreen !important;
 }
 
 .btn-danger {
+  margin-top: 10vh !important;
   background-color: red !important;
 }
 
@@ -50,4 +52,25 @@ p {
 
 .heading {
   margin-bottom: 48px;
+}
+
+.btn-mic {
+  margin-top: 10px;
+  cursor: pointer;
+  height: 20% !important;
+  width: 20% !important;
+}
+
+.recording-screen {
+  position:fixed;
+  top: 100%;
+  left: 50%;
+  width:30em;
+  height:18em;
+  color: red;
+  font-style: bold;
+  margin-top: -9em; 
+  margin-left: -15em;
+  border: 1px solid #ccc;
+  background-color: #00ffffff;
 }
