@@ -18,6 +18,10 @@ class Student extends React.Component {
       props.startThumbsCheck(data.questionId);
     })
 
+    socket.on('interrupt', (data) => {
+      this.props.endThumbsCheck();
+    })
+
     socket.on('lectureEnded', (data) => {
       props.endLectureStudent();
     })

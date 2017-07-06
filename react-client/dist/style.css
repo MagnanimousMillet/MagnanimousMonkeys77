@@ -19,7 +19,8 @@
   border-radius: 96px !important;
   padding-top: 6px !important; padding-bottom: 6px !important;
   width: 64vw !important;
-  margin-top: 24vh !important;
+  /*margin-top: 24vh !important;*/
+  margin-top: 45px;
 }
 
 .btn-success {
