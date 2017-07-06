@@ -43,7 +43,6 @@ class LectureButtons extends React.Component {
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
     this.recognition.start();
-    this.recognition.onstart = () => console.log('hello');
     this.recognition.onresult = (event) => {
       var final = '';
       var interim = '';
@@ -72,6 +71,7 @@ class LectureButtons extends React.Component {
     axios({
 	    method: 'post',
 	    url: '/checkthumbs',
+	    data: this.state.question,
 	    params: {
 	      lecture_id: this.props.lectureId
 	    }
@@ -97,18 +97,21 @@ class LectureButtons extends React.Component {
           	? <img onClick={this.onRecord.bind(this)} className="btn-mic" src="ios-9-siri-icon-768x766.png"></img>
           	: ''
           }
-					<div
-						className="btn btn-lg btn-success"
-						onClick={this.onThumbsCheck.bind(this)}>
-						Check Thumbs
-					</div>
-				</div>
-				<div className="col-xs-12 text-center">
-					<div
-						className="btn btn-lg btn-danger"
-						onClick={this.props.endLecture}>
-						End Lecture
-					</div>
+          {this.state.recording
+          	? <div className="recording-screen">RECORDING</div>
+          	: <div className="col-xs-12 text-center">
+          			<div
+									className="btn btn-lg btn-success"
+									onClick={this.onThumbsCheck.bind(this)}>
+									Check Thumbs
+								</div>
+								<div
+									className="btn btn-lg btn-danger"
+									onClick={this.props.endLecture}>
+									End Lecture
+								</div>
+							</div>
+          }
 				</div>
 		  </div>
 		)
