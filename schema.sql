@@ -1,13 +1,13 @@
--- DROP DATABASE IF EXISTS thumbscheck;
+DROP DATABASE IF EXISTS thumbscheck;
 
--- CREATE DATABASE IF NOT EXISTS thumbscheck;
+CREATE DATABASE IF NOT EXISTS thumbscheck;
 
--- USE thumbscheck;
+USE thumbscheck;
 
--- DROP TABLE users IF EXISTS users;
--- DROP TABLE thumbs IF EXISTS thumbs;
--- DROP TABLE questions IF EXISTS questions;
--- DROP TABLE lectures IF EXISTS lectures;
+DROP TABLE users IF EXISTS users;
+DROP TABLE thumbs IF EXISTS thumbs;
+DROP TABLE questions IF EXISTS questions;
+DROP TABLE lectures IF EXISTS lectures;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,

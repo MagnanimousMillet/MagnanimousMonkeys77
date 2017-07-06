@@ -32,6 +32,7 @@ class App extends React.Component {
   }
 
   onSignIn(googleUser) {
+    console.log('signin please: ', googleUser);
     let tokenId = googleUser.tokenId;
     axios({
       method: 'get',
