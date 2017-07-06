@@ -13,7 +13,7 @@ class Login extends React.Component {
 
   responseGoogle(response) {
     console.log(this.props);
-    console.log(response);
+    console.log('google response: ', response);
     this.setState({ tokenId: response.tokenId})
   }
 

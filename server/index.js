@@ -25,6 +25,7 @@ app.get('/login', (req, res) => {
   google.verifyToken(req.query.tokenId, '745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com')
   .then(fromGoogle => {
     googleResults = fromGoogle;
+    console.log(googleResults);
     return db.getUserType(fromGoogle.gmail);
   })
   .then(result => {
