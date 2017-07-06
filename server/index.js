@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/login', (req, res) => {
   var googleResults;
-  google.verifyToken(req.query.tokenId, '430160456638-mmtpqlu3h8t0nkum0tlo167d492gvbmf.apps.googleusercontent.com')
+  google.verifyToken(req.query.tokenId, '745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com')
   .then(fromGoogle => {
     googleResults = fromGoogle;
     return db.getUserType(fromGoogle.gmail);
