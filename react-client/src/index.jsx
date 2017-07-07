@@ -5,6 +5,7 @@ import Bootstrap from '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../react-client/dist/style.css';
 import Login from './components/Login.jsx';
 import Student from './components/Student.jsx';
+import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
@@ -199,11 +200,11 @@ class App extends React.Component {
                 />
     		      : this.state.view === 'admin'
               ? <Admin 
-              
-  	            // ENSURE 'admin' IS A VALUE WHICH CAN BE SET
-              
+                            
 	              // INCLUDE HERE ANYTHING NEEDED BY THE ADMIN COMPONENT
-              
+                  givenName={this.state.givenName}
+                  view={this.state.view}
+
               />
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
