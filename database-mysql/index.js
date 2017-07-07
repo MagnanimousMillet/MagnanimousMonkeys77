@@ -8,7 +8,7 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
   // database : process.env.DB_NAME || 'thumbscheck'
   host     : 'localhost',
   user     : 'root',
-  password :  '',
+  password : '',
   database : 'thumbscheck'
 });
 
@@ -22,6 +22,7 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
 
 
 // console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
+console.log(`db connection:\n Host: ${pool.config.connectionConfig.host}\n Port: ${pool.config.connectionConfig.port}\n User: ${pool.config.connectionConfig.user}\n Password: ${pool.config.connectionConfig.password}\n Database: ${pool.config.connectionConfig.database}\n`);
 
 exports.getUserType = function(gmail) {
   return new Promise ((resolve, reject) => {

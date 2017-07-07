@@ -5,6 +5,7 @@ import Bootstrap from '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../react-client/dist/style.css';
 import Login from './components/Login.jsx';
 import Student from './components/Student.jsx';
+import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
@@ -47,7 +48,7 @@ class App extends React.Component {
       if (result.data[0].user_type === 'STUDENT') {
         this.setState({ view: 'student'});
       } else if (result.data[0].user_type === 'INSTRUCTOR') {
-        this.setState({ view: 'instructor'});
+        this.setState({ view: 'admin'});
       }
       this.setState({ givenName: googleUser.profileObj.givenName })
       socket.emit('username', { username: googleUser.profileObj.email })
@@ -62,7 +63,14 @@ class App extends React.Component {
     this.setState({
       lectureStatus: 'lectureStarted',
       lectureId: lectureId,
-      lectureName: lectureName
+      lectureName: lectureName,
+      view: 'instructor'
+    })
+  }
+
+  goToData () {
+    this.setState({
+      view: 'data'
     })
   }
 
@@ -197,6 +205,17 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                 />
+    		      : this.state.view === 'admin'
+              ? <Admin 
+                  givenName={this.state.givenName}
+                  startLecture={this.startLecture.bind(this)}
+                  view={this.state.view}
+              />
+    		      : this.state.view === 'data'
+    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
+              ? <Admin 
+                  givenName={this.state.givenName}
+              />
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
