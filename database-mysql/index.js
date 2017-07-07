@@ -131,6 +131,19 @@ exports.addStudent = function(first, last, gmail) {
   })
 }
 
+exports.getDataForVisualization = function(username) {
+  return new Promise ((resolve, reject) => {
+    pool.query(`SELECT l.name, q.average_thumb_question FROM lectures as l INNER JOIN questions as q on l.id=q.lecture_id AND l.user_id=(SELECT id FROM users where first_name="${username}")`, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        resolve(results);
+      }
+    });
+  })
+
+}
+
 // test
 
 /*

@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 var SRC_DIR = path.join(__dirname, '/react-client/src');
 var DIST_DIR = path.join(__dirname, '/react-client/dist');
 
@@ -21,6 +22,9 @@ module.exports = {
       {
         test: /\.css$/,
         loader: "style-loader!css-loader"
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+        loader: 'url-loader?limit=100000' 
       }
     ]
   }

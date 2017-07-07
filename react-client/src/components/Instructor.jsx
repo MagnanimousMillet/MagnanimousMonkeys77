@@ -22,6 +22,9 @@ class Instructor extends React.Component {
   render () {
     return (
       <div>
+        <div className="btn btn-info"  onClick={(e) => this.props.changeDataVisualizationView(e)}>
+          Data Visualization 
+        </div>
         {this.props.lectureStatus === 'lectureNotStarted'
           ? <LectureStarter
               startLecture={this.props.startLecture}

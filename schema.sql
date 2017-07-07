@@ -38,6 +38,7 @@ CREATE TABLE lectures (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   average_thumb_lecture DEC(4,2),
+  user_id INT NOT NULL,
   PRIMARY KEY (ID)
 );
 
