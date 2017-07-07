@@ -4,10 +4,10 @@ CREATE DATABASE IF NOT EXISTS thumbscheck;
 
 USE thumbscheck;
 
-DROP TABLE users IF EXISTS users;
-DROP TABLE thumbs IF EXISTS thumbs;
-DROP TABLE questions IF EXISTS questions;
-DROP TABLE lectures IF EXISTS lectures;
+-- DROP TABLE users;
+-- DROP TABLE thumbs;
+-- DROP TABLE questions;
+-- DROP TABLE lectures;
 
 CREATE TABLE users (
   id INT NOT NULL AUTO_INCREMENT,
@@ -31,6 +31,8 @@ CREATE TABLE questions (
   id INT NOT NULL AUTO_INCREMENT,
   lecture_id INT NOT NULL,
   average_thumb_question DEC(4,2),
+  question VARCHAR(50) NOT NULL,
+  keyword_id INT NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -38,6 +40,12 @@ CREATE TABLE lectures (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   average_thumb_lecture DEC(4,2),
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE keywords (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
   PRIMARY KEY (ID)
 );
 
