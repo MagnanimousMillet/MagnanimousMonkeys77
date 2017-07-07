@@ -30,5 +30,4 @@ class Admin extends React.Component {
 
 export default Admin;
 
-
 //  					onClick={this.onThumbsCheck.bind(this)}>
