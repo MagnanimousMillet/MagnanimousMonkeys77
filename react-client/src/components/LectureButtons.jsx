@@ -71,7 +71,7 @@ class LectureButtons extends React.Component {
     axios({
 	    method: 'post',
 	    url: '/checkthumbs',
-	    data: this.state.question,
+	    data: {question: this.state.question},
 	    params: {
 	      lecture_id: this.props.lectureId
 	    }

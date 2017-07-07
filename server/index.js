@@ -6,6 +6,7 @@ var google = require('./middleware/googleAuth.js');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var keywords = require('./middleware/keywords.js')
 //var data = require('./middleware/thumbsData.js');
 
 const port = process.env.PORT || 3000;
@@ -19,6 +20,9 @@ var thumbs = '';
 var instructorId = '';  // this will be the socket.id
 
 app.use(express.static(__dirname + '/../react-client/dist'));
+
+app.use(bodyParser.json());
+
 
 app.get('/login', (req, res) => {
   var googleResults;
@@ -64,9 +68,13 @@ app.post('/lecture', (req, res) => {
   })
 })
 
+app.use('/checkthumbs', keywords);
+
 app.post('/checkthumbs', (req, res) => {
-  let lecture = req.query.lecture_id;
-  db.createNewQuestion(lecture)
+  let lecture = req.query.lecture_id || 0;
+  var question = req.body.question;
+  var keyword = req.body.keyword;
+  db.createNewQuestion(lecture, question, keyword)
   .then(results => {
     questionId = results.insertId;
     thumbs = new ThumbsData(lectureId, questionId);

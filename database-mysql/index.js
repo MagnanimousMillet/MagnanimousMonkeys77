@@ -16,7 +16,6 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
 //   database: 'thumbscheck'
 // });
 
-
 // console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
 
 exports.getUserType = function(gmail) {
@@ -43,15 +42,51 @@ exports.createNewLecture = function(name) {
   })
 }
 
-exports.createNewQuestion = function(lectureId) {
+exports.createNewQuestion = function(lectureId, question, keyword) {
   return new Promise ((resolve, reject) => {
-    pool.query(`INSERT INTO questions (lecture_id) VALUES ("${lectureId}")`, (err, results) => {
+    pool.query(`SELECT id FROM keywords WHERE name = "${keyword}"`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        resolve(results);
+
+        if (results[0]) {
+          var keywordId = results[0].id;
+
+          pool.query(`INSERT INTO questions (lecture_id, question, keyword_id) VALUES ("${lectureId}", "${question}", "${keywordId}")`, (err, results) => {
+            if (err) {
+              console.log(err);
+            } else {
+              resolve(results);
+            }
+          });
+
+        } else {
+
+          pool.query(`INSERT INTO keywords (name) VALUES ("${keyword}")`, (err, results) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('postInsertKeyword', results);
+              pool.query(`INSERT INTO questions (lecture_id, question, keyword_id) VALUES ("${lectureId}", "${question}", "${results.insertId}")`, (err, results) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  resolve(results);
+                }
+              });
+            }
+          });
+
+
+
+        }
+
+
+
+
       }
     });
+
   })
 }
 
