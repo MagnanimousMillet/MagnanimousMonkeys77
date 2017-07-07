@@ -24,14 +24,11 @@ class Admin extends React.Component {
           startLecture={this.props.startLecture}
         />
       </div>
-      <LectureStarter
-        startLecture={this.props.startLecture}
-      />
-      </div>
     )
   }
 }
 
 export default Admin;
+
 
 //  					onClick={this.onThumbsCheck.bind(this)}>
