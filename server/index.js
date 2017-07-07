@@ -72,7 +72,7 @@ app.use('/checkthumbs', keywords);
 
 app.post('/checkthumbs', (req, res) => {
   let lecture = req.query.lecture_id || 0;
-  var question = req.body;
+  var question = req.body.question;
   var keyword = req.body.keyword;
   db.createNewQuestion(lecture, question, keyword)
   .then(results => {
