@@ -19,10 +19,12 @@
   border-radius: 96px !important;
   padding-top: 6px !important; padding-bottom: 6px !important;
   width: 64vw !important;
-  margin-top: 24vh !important;
+  /*margin-top: 24vh !important;*/
+  margin-top: 45px;
 }
 
 .btn-success {
+  margin-top: 10vh !important;
   background-color: limegreen !important;
 }
 
@@ -33,6 +35,7 @@ div.btn.btn-info{
 }
 
 .btn-danger {
+  margin-top: 10vh !important;
   background-color: red !important;
 }
 
@@ -57,6 +60,26 @@ p {
   margin-bottom: 48px;
 }
 
+.btn-mic {
+  margin-top: 10px;
+  cursor: pointer;
+  height: 20% !important;
+  width: 20% !important;
+}
+
+.recording-screen {
+  position:fixed;
+  top: 100%;
+  left: 50%;
+  width:30em;
+  height:18em;
+  color: red;
+  font-style: bold;
+  margin-top: -9em; 
+  margin-left: -15em;
+  background-color: #00ffffff;
+}
+
 .tooltip {
   width: 10%;
   height: 10%;
@@ -73,3 +96,4 @@ p {
   justify-content: center;
   align-items: center;
 }
+

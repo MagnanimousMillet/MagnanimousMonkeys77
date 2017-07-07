@@ -6,9 +6,11 @@ var google = require('./middleware/googleAuth.js');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var keywords = require('./middleware/keywords.js')
 //var data = require('./middleware/thumbsData.js');
 
 const port = process.env.PORT || 3000;
+// const port = 3000;
 
 server.listen(port);
 
@@ -19,11 +21,15 @@ var instructorId = '';  // this will be the socket.id
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+app.use(bodyParser.json());
+
+
 app.get('/login', (req, res) => {
   var googleResults;
-  google.verifyToken(req.query.tokenId, '430160456638-mmtpqlu3h8t0nkum0tlo167d492gvbmf.apps.googleusercontent.com')
+  google.verifyToken(req.query.tokenId, '745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com')
   .then(fromGoogle => {
     googleResults = fromGoogle;
+    console.log(googleResults);
     return db.getUserType(fromGoogle.gmail);
   })
   .then(result => {
@@ -70,25 +76,37 @@ app.post('/lecture', (req, res) => {
   })
 })
 
+app.use('/checkthumbs', keywords);
+
 app.post('/checkthumbs', (req, res) => {
-  let lecture = req.query.lecture_id;
-  db.createNewQuestion(lecture)
+  let lecture = req.query.lecture_id || 0;
+  var question = req.body.question;
+  var keyword = req.body.keyword;
+  db.createNewQuestion(lecture, question, keyword)
   .then(results => {
     questionId = results.insertId;
     thumbs = new ThumbsData(lectureId, questionId);
     //Emit the new question to students here
     io.emit('checkingThumbs', { questionId: questionId });
     //This will add thumbsdata in the db after the question ends
-    db.asyncTimeout(32000, () => {
-      for (let student in thumbs.students) {
-        //console.log(`${thumbs.students[student].gmail}, ${thumbs.questionId}, ${thumbs.students[student].thumbValue}`);
-        db.createThumbData(thumbs.students[student].gmail, thumbs.questionId, thumbs.students[student].thumbValue);
-      }
-      db.addAvgThumbForQuestion(questionId, thumbs.getAverageThumbValue());
-    });
+
+    // setTimeout(() => {
+
+    // }, 3200);
+
     //send the response to the teacher
     res.send({ questionId: questionId });
-  })
+    res.end();
+  });
+})
+
+app.post('/interrupt', (req, res) => {
+  io.emit('interrupt', {questionId: req.query.question_id});
+  for (let student in thumbs.students) {
+    //console.log(`${thumbs.students[student].gmail}, ${thumbs.questionId}, ${thumbs.students[student].thumbValue}`);
+    db.createThumbData(thumbs.students[student].gmail, thumbs.questionId, thumbs.students[student].thumbValue);
+  }
+  db.addAvgThumbForQuestion(questionId, thumbs.getAverageThumbValue());
 })
 
 app.post('/endLecture', (req, res) => {

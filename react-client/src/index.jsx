@@ -91,14 +91,17 @@ class App extends React.Component {
 
   setCountdownInterval () {
     countdownInterval = setInterval (() => {
-      this.state.countdown === 0
-      ? this.clearCountdownInterval()
-      : this.setState({ countdown: this.state.countdown - 1 }, () => {
-        console.log('this.state.countdown', this.state.countdown);
-        if (this.state.view === 'student') {
-          socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
-        }
-      });
+      if (this.state.countdown === 0) {
+        this.clearCountdownInterval();
+        if (this.state.view === 'instructor') this.interruptThumbsCheck();
+      } else {
+        this.setState({ countdown: this.state.countdown - 1 }, () => {
+          console.log('this.state.countdown', this.state.countdown);
+          if (this.state.view === 'student') {
+            socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
+          }
+        });
+      }
     }, 1000)
   }
 
@@ -108,7 +111,8 @@ class App extends React.Component {
       this.setState({
         lectureStatus: 'lectureStarted',
         questionId: '',
-        countdown: 30
+        countdown: 30,
+        thumbValue: 2
       })
     }
   }
@@ -117,21 +121,32 @@ class App extends React.Component {
     this.setState({
       lectureStatus: 'checkingThumbs',
       questionId: questionId
-    }, this.setCountdownInterval)
+    }, this.setCountdownInterval);
+  }
+
+  interruptThumbsCheck () {
+    console.log('INTERRUPT');
+    axios({
+      method: 'post',
+      url: '/interrupt',
+      params: {
+        question_id: this.state.questionId
+      }
+    });
+    this.endThumbsCheck();
   }
 
   endThumbsCheck () {
-    this.setState({
-      lectureStatus: 'lectureStarted',
-      questionId: ''
-    })
+    this.setState({countdown: 0});
+    this.clearCountdownInterval();
   }
 
   clearThumbsCheck () {
     this.setState({
       lectureStatus: 'lectureStarted',
       questionId: '',
-      countdown: 30
+      countdown: 30,
+      thumbValue: 2
     })
   }
 
@@ -173,6 +188,7 @@ class App extends React.Component {
                   thumbValue={this.state.thumbValue}
                   changeThumbValue={this.changeThumbValue.bind(this)}
                   startThumbsCheck={this.startThumbsCheck.bind(this)}
+                  endThumbsCheck={this.endThumbsCheck.bind(this)}
                   startLecture={this.startLecture.bind(this)}
                   lectureStatus={this.state.lectureStatus}
                   countdown={this.state.countdown}
@@ -182,6 +198,7 @@ class App extends React.Component {
                   lectureName={this.state.lectureName}
                 />
               : <Instructor
+                  interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
                   lectureId={this.state.lectureId}
                   lectureStatus={this.state.lectureStatus}

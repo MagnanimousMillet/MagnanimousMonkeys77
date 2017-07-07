@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-var pool  = mysql.createPool({
+var pool  = mysql.createPool(process.env.DATABASE_URL || {
   connectionLimit : 10,
   // host     : process.env.DB_HOST || 'localhost',
   // user     : process.env.DB_USERNAME || 'root',
@@ -12,8 +12,16 @@ var pool  = mysql.createPool({
   database : 'thumbscheck'
 });
 
+// var pool  = mysql.createPool({
+//   connectionLimit : 10,
+//   host     : 'localhost',
+//   user     : 'root',
+//   // password : 'plantlife',
+//   database: 'thumbscheck'
+// });
 
-//console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
+
+// console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
 
 exports.getUserType = function(gmail) {
   return new Promise ((resolve, reject) => {
@@ -39,15 +47,51 @@ exports.createNewLecture = function(name) {
   })
 }
 
-exports.createNewQuestion = function(lectureId) {
+exports.createNewQuestion = function(lectureId, question, keyword) {
   return new Promise ((resolve, reject) => {
-    pool.query(`INSERT INTO questions (lecture_id) VALUES ("${lectureId}")`, (err, results) => {
+    pool.query(`SELECT id FROM keywords WHERE name = "${keyword}"`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        resolve(results);
+
+        if (results[0]) {
+          var keywordId = results[0].id;
+
+          pool.query(`INSERT INTO questions (lecture_id, question, keyword_id) VALUES ("${lectureId}", "${question}", "${keywordId}")`, (err, results) => {
+            if (err) {
+              console.log(err);
+            } else {
+              resolve(results);
+            }
+          });
+
+        } else {
+
+          pool.query(`INSERT INTO keywords (name) VALUES ("${keyword}")`, (err, results) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('postInsertKeyword', results);
+              pool.query(`INSERT INTO questions (lecture_id, question, keyword_id) VALUES ("${lectureId}", "${question}", "${results.insertId}")`, (err, results) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  resolve(results);
+                }
+              });
+            }
+          });
+
+
+
+        }
+
+
+
+
       }
     });
+
   })
 }
 
@@ -151,17 +195,17 @@ exports.getDataForVisualization = function(username) {
 /* Section
 */
 
-exports.asyncTimeout = function(time, callback) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let results = 'no callback';
-      if (callback) {
-        results = callback();
-      }
-      resolve(results);
-    }, time || 1000);
-  });
-}
+// exports.asyncTimeout = function(time, callback) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       let results = 'no callback';
+//       if (callback) {
+//         results = callback();
+//       }
+//       resolve(results);
+//     }, time || 1000);
+//   });
+// }
 
 /* Test Functions
 

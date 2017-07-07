@@ -31,6 +31,8 @@ CREATE TABLE questions (
   id INT NOT NULL AUTO_INCREMENT,
   lecture_id INT NOT NULL,
   average_thumb_question DEC(4,2),
+  question VARCHAR(50) NOT NULL,
+  keyword_id INT NOT NULL,
   PRIMARY KEY (ID)
 );
 
@@ -42,10 +44,19 @@ CREATE TABLE lectures (
   PRIMARY KEY (ID)
 );
 
+CREATE TABLE keywords (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
 /*
  *
  */
 
+
+INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Mister", "Johnson", "drk.w.jhnsn@gmail.com", "INSTRUCTOR");
+INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Derek", "Johnson", "drk.w.jhnsn.student@gmail.com", "STUDENT");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Rob", "St. Lezin", "robstlezin@gmail.com", "STUDENT");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Shyan", "Kashani", "shyan.kashani@gmail.com", "STUDENT");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Mike", "Clausen", "michaeljclausen@gmail.com", "INSTRUCTOR");

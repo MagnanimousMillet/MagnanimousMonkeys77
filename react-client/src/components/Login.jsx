@@ -13,7 +13,7 @@ class Login extends React.Component {
 
   responseGoogle(response) {
     console.log(this.props);
-    console.log(response);
+    console.log('redirected:', response);
     this.setState({ tokenId: response.tokenId})
   }
 
@@ -22,7 +22,7 @@ class Login extends React.Component {
       <div className="row">
         <div className="col-xs-12 text-center">
           <GoogleLogin
-            clientId="430160456638-mmtpqlu3h8t0nkum0tlo167d492gvbmf.apps.googleusercontent.com"
+            clientId="745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com"
             scope="profile email"
             buttonText="Login with Google"
             onSuccess={this.props.onSignIn}
