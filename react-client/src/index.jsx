@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Bootstrap from '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../react-client/dist/style.css';
 import Login from './components/Login.jsx';
 import Student from './components/Student.jsx';
 import Instructor from './components/Instructor.jsx';
+import Chart from './components/Chart.jsx';
 import axios from 'axios';
 
 const io = require('socket.io-client');
@@ -153,6 +156,11 @@ class App extends React.Component {
     })
   }
 
+  changeDataVisualizationView(){
+    this.setState({
+      view: 'data-visualization'
+    });
+  }
 
   render () {
     return (
@@ -168,6 +176,9 @@ class App extends React.Component {
           </div>
         </nav>
         <div className="container-fluid main">
+            {
+              this.state.view === 'data-visualization' ? <Chart username={this.state.givenName}/> : ''
+            }
             {this.state.view === 'login'
               ? <Login
                   onSignIn={this.onSignIn.bind(this)}
@@ -200,6 +211,7 @@ class App extends React.Component {
                   view={this.state.view}
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
+                  changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
                 />}
         </div>
       </div>

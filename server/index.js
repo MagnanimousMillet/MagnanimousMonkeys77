@@ -55,9 +55,18 @@ app.get('/login', (req, res) => {
   })
 })
 
+app.get('/getDataForVisualization', (req, res) => {
+  let name = req.query.username;
+  db.getDataForVisualization(name)
+  .then(results => {
+    res.send({ results: results });
+  })
+})
+
 app.post('/lecture', (req, res) => {
   let name = req.query.name;
-  db.createNewLecture(name)
+  let username = req.query.username;
+  db.createNewLecture(name,username)
   .then(results => {
     lectureId = results.insertId;
     res.send({ lectureId: lectureId });

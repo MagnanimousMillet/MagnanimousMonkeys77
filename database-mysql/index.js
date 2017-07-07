@@ -2,10 +2,14 @@ var mysql = require('mysql');
 
 var pool  = mysql.createPool(process.env.DATABASE_URL || {
   connectionLimit : 10,
-  host     : process.env.DB_HOST || 'localhost',
-  user     : process.env.DB_USERNAME || 'root',
-  password : process.env.DB_PASSWORD || '',
-  database : process.env.DB_NAME || 'thumbscheck'
+  // host     : process.env.DB_HOST || 'localhost',
+  // user     : process.env.DB_USERNAME || 'root',
+  // password : process.env.DB_PASSWORD || '',
+  // database : process.env.DB_NAME || 'thumbscheck'
+  host     : 'localhost',
+  user     : 'root',
+  password :  '',
+  database : 'thumbscheck'
 });
 
 // var pool  = mysql.createPool({
@@ -15,6 +19,7 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
 //   // password : 'plantlife',
 //   database: 'thumbscheck'
 // });
+
 
 // console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
 
@@ -30,16 +35,26 @@ exports.getUserType = function(gmail) {
   })
 }
 
-exports.createNewLecture = function(name) {
+exports.createNewLecture = function(name,username) {
   return new Promise ((resolve, reject) => {
-    pool.query(`INSERT INTO lectures (name) VALUES ("${name}")`, (err, results) => {
+    pool.query(`SELECT id FROM users where first_name="${username}"`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        resolve(results);
+        var userID = 0;
+        if (results[0]) {
+          userID = results[0].id;
+        }
+        pool.query(`INSERT INTO lectures (name,user_id) VALUES ("${name}","${userID}")`, (err, results) => {
+          if (err) {
+            console.log(err);
+          } else {
+            resolve(results);
+          }
+        });
       }
     });
-  })
+  });
 }
 
 exports.createNewQuestion = function(lectureId, question, keyword) {
@@ -168,6 +183,19 @@ exports.addStudent = function(first, last, gmail) {
       }
     });
   })
+}
+
+exports.getDataForVisualization = function(username) {
+  return new Promise ((resolve, reject) => {
+    pool.query(`SELECT l.name, q.average_thumb_question FROM lectures as l INNER JOIN questions as q on l.id=q.lecture_id AND l.user_id=(SELECT id FROM users where first_name="${username}")`, (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        resolve(results);
+      }
+    });
+  })
+
 }
 
 // test

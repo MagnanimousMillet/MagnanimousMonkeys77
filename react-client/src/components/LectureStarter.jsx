@@ -20,7 +20,8 @@ class LectureStarter extends React.Component {
       method: 'post',
       url: '/lecture',
       params: {
-        name: this.state.name
+        name: this.state.name,
+        username: this.props.username
       }
     }).then((response) => {
       this.props.startLecture(response.data.lectureId);
