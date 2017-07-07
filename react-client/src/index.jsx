@@ -63,7 +63,14 @@ class App extends React.Component {
     this.setState({
       lectureStatus: 'lectureStarted',
       lectureId: lectureId,
-      lectureName: lectureName
+      lectureName: lectureName,
+      view: 'instructor'
+    })
+  }
+
+  goToData () {
+    this.setState({
+      view: 'data'
     })
   }
 
@@ -200,11 +207,14 @@ class App extends React.Component {
                 />
     		      : this.state.view === 'admin'
               ? <Admin 
-                            
-	              // INCLUDE HERE ANYTHING NEEDED BY THE ADMIN COMPONENT
                   givenName={this.state.givenName}
+                  startLecture={this.startLecture.bind(this)}
                   view={this.state.view}
-
+              />
+    		      : this.state.view === 'data'
+    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
+              ? <Admin 
+                  givenName={this.state.givenName}
               />
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
