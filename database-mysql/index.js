@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-var pool  = mysql.createPool({
+var pool  = mysql.createPool(process.env.DATABASE_URL || {
   connectionLimit : 10,
   host     : process.env.DB_HOST || 'localhost',
   user     : process.env.DB_USERNAME || 'root',
