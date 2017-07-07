@@ -8,8 +8,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 //var data = require('./middleware/thumbsData.js');
 
-// const port = process.env.PORT || 3000;
-const port = 3000;
+const port = process.env.PORT || 3000;
+// const port = 3000;
 
 server.listen(port);
 
@@ -22,9 +22,10 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.get('/login', (req, res) => {
   var googleResults;
-  google.verifyToken(req.query.tokenId, '430160456638-mmtpqlu3h8t0nkum0tlo167d492gvbmf.apps.googleusercontent.com')
+  google.verifyToken(req.query.tokenId, '745992232545-a8c7pi5g0eoivjcmho0bdui4ui46d9vb.apps.googleusercontent.com')
   .then(fromGoogle => {
     googleResults = fromGoogle;
+    console.log(googleResults);
     return db.getUserType(fromGoogle.gmail);
   })
   .then(result => {

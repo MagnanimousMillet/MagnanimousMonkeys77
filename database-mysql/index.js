@@ -1,20 +1,20 @@
 var mysql = require('mysql');
 
+var pool  = mysql.createPool(process.env.DATABASE_URL || {
+  connectionLimit : 10,
+  host     : process.env.DB_HOST || 'localhost',
+  user     : process.env.DB_USERNAME || 'root',
+  password : process.env.DB_PASSWORD || '',
+  database : process.env.DB_NAME || 'thumbscheck'
+});
+
 // var pool  = mysql.createPool({
 //   connectionLimit : 10,
-//   host     : process.env.DB_HOST || 'localhost',
-//   user     : process.env.DB_USERNAME || 'root',
-//   password : process.env.DB_PASSWORD || 'plantlife',
-//   database : process.env.DB_NAME || 'thumbscheck'
+//   host     : 'localhost',
+//   user     : 'root',
+//   // password : 'plantlife',
+//   database: 'thumbscheck'
 // });
-
-var pool  = mysql.createPool({
-  connectionLimit : 10,
-  host     : 'localhost',
-  user     : 'root',
-  // password : 'plantlife',
-  database: 'thumbscheck'
-});
 
 
 // console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
