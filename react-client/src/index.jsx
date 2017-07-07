@@ -9,6 +9,7 @@ import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
+import DataPage from './components/datapage.jsx';
 
 const io = require('socket.io-client');
 const socket = io();
