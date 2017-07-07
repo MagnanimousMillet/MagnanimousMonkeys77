@@ -47,7 +47,7 @@ class App extends React.Component {
       if (result.data[0].user_type === 'STUDENT') {
         this.setState({ view: 'student'});
       } else if (result.data[0].user_type === 'INSTRUCTOR') {
-        this.setState({ view: 'instructor'});
+        this.setState({ view: 'admin'});
       }
       this.setState({ givenName: googleUser.profileObj.givenName })
       socket.emit('username', { username: googleUser.profileObj.email })
@@ -197,6 +197,14 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                 />
+    		      : this.state.view === 'admin'
+              ? <Admin 
+              
+  	            // ENSURE 'admin' IS A VALUE WHICH CAN BE SET
+              
+	              // INCLUDE HERE ANYTHING NEEDED BY THE ADMIN COMPONENT
+              
+              />
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
