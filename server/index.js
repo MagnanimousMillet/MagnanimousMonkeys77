@@ -65,7 +65,8 @@ app.get('/getDataForVisualization', (req, res) => {
 
 app.post('/lecture', (req, res) => {
   let name = req.query.name;
-  db.createNewLecture(name)
+  let username = req.query.username;
+  db.createNewLecture(name,username)
   .then(results => {
     lectureId = results.insertId;
     res.send({ lectureId: lectureId });

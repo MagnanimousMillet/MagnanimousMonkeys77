@@ -35,16 +35,26 @@ exports.getUserType = function(gmail) {
   })
 }
 
-exports.createNewLecture = function(name) {
+exports.createNewLecture = function(name,username) {
   return new Promise ((resolve, reject) => {
-    pool.query(`INSERT INTO lectures (name) VALUES ("${name}")`, (err, results) => {
+    pool.query(`SELECT id FROM users where first_name="${username}"`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
-        resolve(results);
+        var userID = 0;
+        if (results[0]) {
+          userID = results[0].id;
+        }
+        pool.query(`INSERT INTO lectures (name,user_id) VALUES ("${name}","${userID}")`, (err, results) => {
+          if (err) {
+            console.log(err);
+          } else {
+            resolve(results);
+          }
+        });
       }
     });
-  })
+  });
 }
 
 exports.createNewQuestion = function(lectureId, question, keyword) {
