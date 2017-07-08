@@ -6,6 +6,9 @@ class Admin extends React.Component {
     super(props);
     this.state = {};
   }
+  onDataVisualiziationClick () {
+    this.props.changeDataVisualizationView();
+  }
 
   render () {
     return (
@@ -16,6 +19,7 @@ class Admin extends React.Component {
             <p>This is the admin page.<br></br>From here you can view stored student data or start a new lecture.</p>
           </div>
     			<div
+            onClick={this.onDataVisualiziationClick.bind(this)}
   					className="btn btn-lg btn-success">
   					Data Visualization Page
   				</div>

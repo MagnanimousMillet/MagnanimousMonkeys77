@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Button, ButtonGroup, Image, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class LectureButtons extends React.Component {
 	constructor (props) {
@@ -86,31 +87,38 @@ class LectureButtons extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-xs-12 text-center">
-					<input
-            type="text"
-            className="form-control"
-            value={this.state.question}
-            placeholder="Enter question..."
-            onChange={this.onChange.bind(this)}
-          />
+          <form>
+            <FormGroup>
+              <FormControl 
+                onChange={this.onChange.bind(this)} 
+                value={this.state.question} 
+                componentClass="textarea" 
+                placeholder="Enter question..."/>
+            </FormGroup>
+          </form>
           {this.state.hasMicrophone
-          	? <img onClick={this.onRecord.bind(this)} className="btn-mic" src="ios-9-siri-icon-768x766.png"></img>
+          	? <img
+              className="btn-mic"
+              onClick={this.onRecord.bind(this)}
+              src="ios-9-siri-icon-768x766.png"></img>
           	: ''
           }
           {this.state.recording
-          	? <div className="recording-screen">RECORDING</div>
-          	: <div className="col-xs-12 text-center">
-          			<div
-									className="btn btn-lg btn-success"
+          	? <div className="row">
+                <div className="col-md-6 col-md-offset-3 recording-mic">RECORDING</div>
+              </div>
+          	: <ButtonGroup vertical block bsClass="row">
+          			<Button
+                  bsStyle="success"
 									onClick={this.onThumbsCheck.bind(this)}>
-									Check Thumbs
-								</div>
-								<div
-									className="btn btn-lg btn-danger"
+                  Check Thumbs
+								</Button>
+								<Button
+                  bsStyle="success"
 									onClick={this.props.endLecture}>
-									End Lecture
-								</div>
-							</div>
+                  End Lecture
+								</Button>
+							</ButtonGroup>
           }
 				</div>
 		  </div>
@@ -118,5 +126,4 @@ class LectureButtons extends React.Component {
 	}
 
 }
-
 export default LectureButtons;
