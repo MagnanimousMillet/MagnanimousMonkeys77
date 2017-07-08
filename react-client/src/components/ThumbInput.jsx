@@ -14,7 +14,7 @@ class ThumbInput extends React.Component {
   render () {
     return (
       <div className="col-xs-12">
-        <div class="row">
+        <div className="row">
           <div className="col-xs-12 text-center heading">
   					Input your thumb
           </div>

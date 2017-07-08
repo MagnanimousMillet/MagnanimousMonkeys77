@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
 
+
 class Category extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +64,7 @@ class Category extends React.Component {
             <select id="topicVal" onChange={this.handleChange.bind(this)}>
               <option value="select">Select</option>
               {this.state.keywords.map((currentObj, index) =>
-              <option key={index} value={currentObj['keyword_id']}>{currentObj['name'] + ' '}({this.findAvg(currentObj['id'])})</option>
+              <option key={index} value={currentObj['id']}>{currentObj['name'] + ' '}({this.findAvg(currentObj['id'])})</option>
               )}
             </select>
           </label>
@@ -72,7 +73,7 @@ class Category extends React.Component {
           <ButtonGroup vertical block bsClass="row">
             <Button
               bsStyle="danger"
-              onClick={this.props.backButton}>BACK</Button>
+              onClick={this.props.backButton}>Back</Button>
           </ButtonGroup>
         </div>
       )
