@@ -43,11 +43,9 @@ app.get('/login', (req, res) => {
     }
   })
   .then(result => {
-    console.log('another result: ', result);
     return db.getUserType(googleResults.gmail);
   })
   .then(result => {
-    console.log('final results', result);
     res.status(201).send(result);
   })
   .catch(err => {
@@ -56,8 +54,8 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/getDataForVisualization', (req, res) => {
-  let email = req.query.userEmail;
-  console.log(email);
+  let email = req.query.useremail;
+  console.log('test the email: ', email);
   db.getDataForVisualization(email)
   .then(results => {
     res.send({ results: results });

@@ -9,7 +9,6 @@ import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
-import DataPage from './components/datapage.jsx';
 
 const io = require('socket.io-client');
 const socket = io();
@@ -35,6 +34,14 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({ view: 'login' });
+  }
+
+  renderInstructor() {
+    this.setState({ view: 'instructor'})
+  }
+
+  backButton() {
+    this.setState({ view: 'admin'})
   }
 
   onSignIn(googleUser) {
@@ -65,8 +72,7 @@ class App extends React.Component {
     this.setState({
       lectureStatus: 'lectureStarted',
       lectureId: lectureId,
-      lectureName: lectureName,
-      view: 'instructor'
+      lectureName: lectureName
     })
   }
 
@@ -202,7 +208,8 @@ class App extends React.Component {
                   lectureName={this.state.lectureName}
                 />
     		      : this.state.view === 'admin'
-              ? <Admin 
+              ? <Admin
+                  renderInstructor={this.renderInstructor.bind(this)}
                   givenName={this.state.givenName}
                   startLecture={this.startLecture.bind(this)}
                   view={this.state.view}
@@ -212,10 +219,13 @@ class App extends React.Component {
     // CHANGE THIS TO 'CHART' WHEN AVAILABLE
               ? <Chart 
                   username={this.state.givenName}
-                  userEmail={this.state.userEmail}/>
-              : <Instructor
+                  userEmail={this.state.userEmail}
+                  backButton={this.backButton.bind(this)}/>
+              : this.state.view === 'instructor'
+              ?<Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
+                  backButton={this.backButton.bind(this)}
                   lectureId={this.state.lectureId}
                   lectureStatus={this.state.lectureStatus}
                   startLecture={this.startLecture.bind(this)}
@@ -228,7 +238,9 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
-                />}
+                />
+                : ''
+              }
         </div>
       </div>
     )
