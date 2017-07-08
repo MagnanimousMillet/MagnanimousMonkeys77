@@ -1,12 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
 import ReactDOM from 'react-dom';
-//import axios from 'axios';
 import { Button, ButtonGroup } from 'react-bootstrap';
-=======
 import axios from 'axios';
-//import Chart from './components/Chart.jsx';
->>>>>>> c340a9ec36d6393e8f77168c9b25aedecde8744c
+
 
 class Category extends React.Component {
   constructor(props) {
