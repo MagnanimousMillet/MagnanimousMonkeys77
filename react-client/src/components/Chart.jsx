@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { Button, ButtonGroup } from 'react-bootstrap';
 var BarChart = require('react-d3-components/lib').BarChart;
 
 class Chart extends React.Component {
@@ -16,7 +17,7 @@ class Chart extends React.Component {
       method: 'get',
       url: '/getDataForVisualization',
       params: {
-        username: this.props.username
+        username: this.props.userEmail
       }
     })
     .then(result => {
@@ -45,15 +46,20 @@ class Chart extends React.Component {
         return x+": "+y;
       }
       return (
+      <div>
         <BarChart
-        data={data}
-        colorByLabel={false}
-        width={1000}
-        height={400}
-        margin={{top: 10, bottom: 50, left: 50, right: 10}}
-        tooltipHtml={tooltipBar}
-        tooltipMode={'element'}
-      />
+          data={data}
+          colorByLabel={false}
+          width={1000}
+          height={400}
+          margin={{top: 10, bottom: 50, left: 50, right: 10}}
+          tooltipHtml={tooltipBar}
+          tooltipMode={'element'}
+        />
+        <ButtonGroup vertical block>
+          <Button>BACK</Button>
+        </ButtonGroup>
+      </div>
       )
     } else {
       return (

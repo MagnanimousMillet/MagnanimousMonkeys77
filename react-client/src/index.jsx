@@ -9,6 +9,7 @@ import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
+import DataPage from './components/datapage.jsx';
 
 const io = require('socket.io-client');
 const socket = io();
@@ -27,7 +28,8 @@ class App extends React.Component {
       thumbValue: 2,
       countdown: 30,
       givenName: '',
-      lectureName: ''
+      lectureName: '',
+      userEmail: ''
     }
   }
 
@@ -48,7 +50,7 @@ class App extends React.Component {
       if (result.data[0].user_type === 'STUDENT') {
         this.setState({ view: 'student'});
       } else if (result.data[0].user_type === 'INSTRUCTOR') {
-        this.setState({ view: 'admin'});
+        this.setState({ view: 'admin', userEmail: result.data[0].gmail});
       }
       this.setState({ givenName: googleUser.profileObj.givenName })
       socket.emit('username', { username: googleUser.profileObj.email })
@@ -76,7 +78,6 @@ class App extends React.Component {
 
   endLecture () {
     let lectureId = this.state.lectureId;
-    console.log(lectureId);
     axios({
       method: 'post',
       url: '/endLecture',
@@ -104,7 +105,6 @@ class App extends React.Component {
         if (this.state.view === 'instructor') this.interruptThumbsCheck();
       } else {
         this.setState({ countdown: this.state.countdown - 1 }, () => {
-          console.log('this.state.countdown', this.state.countdown);
           if (this.state.view === 'student') {
             socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
           }
@@ -133,7 +133,6 @@ class App extends React.Component {
   }
 
   interruptThumbsCheck () {
-    console.log('INTERRUPT');
     axios({
       method: 'post',
       url: '/interrupt',
@@ -166,7 +165,7 @@ class App extends React.Component {
 
   changeDataVisualizationView(){
     this.setState({
-      view: 'data-visualization'
+      view: 'data'
     });
   }
 
@@ -184,9 +183,6 @@ class App extends React.Component {
           </div>
         </nav>
         <div className="container-fluid main">
-            {
-              this.state.view === 'data-visualization' ? <Chart username={this.state.givenName}/> : ''
-            }
             {this.state.view === 'login'
               ? <Login
                   onSignIn={this.onSignIn.bind(this)}
@@ -210,12 +206,12 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   startLecture={this.startLecture.bind(this)}
                   view={this.state.view}
+                  changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
     		      : this.state.view === 'data'
-    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
-              ? <Admin 
-                  givenName={this.state.givenName}
-              />
+              ? <Chart 
+                  username={this.state.givenName}
+                  userEmail={this.state.userEmail}/>
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
