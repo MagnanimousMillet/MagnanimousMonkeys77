@@ -64,6 +64,8 @@ INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Chris", "Aa
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Robs", "Rent", "Stlezinrent@gmail.com", "INSTRUCTOR");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Shyan", "Instructor", "shyankashani1@gmail.com", "INSTRUCTOR");
 INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Saloni", "Shah", "saloni.shah281@gmail.com", "INSTRUCTOR");
+INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Vincent", "La", "vincela15@gmail.com", "INSTRUCTOR");
+INSERT INTO users (first_name, last_name, gmail, user_type) VALUES ("Vincent", "La", "vincentlastudenthr@gmail.com", "STUDENT");
 
 
 /*  Execute this file from the command line by typing:
