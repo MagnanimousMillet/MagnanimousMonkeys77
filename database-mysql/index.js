@@ -24,6 +24,37 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
 // console.log(`db connection: DB_HOST ${process.env.DB_HOST}, DB_USERNAME ${process.env.DB_USERNAME}, DB_PASSWORD ${process.env.DB_PASSWORD}, DB_NAME ${process.env.DB_NAME}`);
 console.log(`db connection:\n Host: ${pool.config.connectionConfig.host}\n Port: ${pool.config.connectionConfig.port}\n User: ${pool.config.connectionConfig.user}\n Password: ${pool.config.connectionConfig.password}\n Database: ${pool.config.connectionConfig.database}\n`);
 
+exports.databasePull = function() {
+  return new Promise ((resolve, reject) => {
+    var data = {};
+    pool.query('SELECT * FROM thumbs', (err, results) => {
+      if (err) console.log(err);
+      data.thumbs = results;
+
+      pool.query('SELECT * FROM questions', (err, results) => {
+        if (err) console.log(err);
+        data.questions = results;
+
+        pool.query('SELECT * FROM users', (err, results) => {
+          if (err) console.log(err);
+          data.users = results;
+
+          pool.query('SELECT * FROM lectures', (err, results) => {
+            if (err) console.log(err);
+            data.lectures = results;
+
+            pool.query('SELECT * FROM keywords', (err, results) => {
+              if (err) console.log(err);
+              data.keywords = results;
+              resolve(data);
+            });
+          });
+        });
+      });
+    });
+  });
+};
+
 exports.getUserType = function(gmail) {
   return new Promise ((resolve, reject) => {
     pool.query(`SELECT user_type, gmail FROM users WHERE gmail = "${gmail}"`, (err, results) => {
@@ -37,6 +68,7 @@ exports.getUserType = function(gmail) {
 }
 
 exports.createNewLecture = function(name,username) {
+  console.log(username);
   return new Promise ((resolve, reject) => {
     pool.query(`SELECT id FROM users where first_name="${username}"`, (err, results) => {
       if (err) {
