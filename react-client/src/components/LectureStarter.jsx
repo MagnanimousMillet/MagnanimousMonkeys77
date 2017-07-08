@@ -17,6 +17,8 @@ class LectureStarter extends React.Component {
   }
 
   onLectureStart () {
+    console.log(this.state.name);
+    console.log(this.props.username);
     axios({
       method: 'post',
       url: '/lecture',
