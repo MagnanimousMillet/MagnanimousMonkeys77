@@ -114,6 +114,7 @@ class App extends React.Component {
       } else {
         this.setState({ countdown: this.state.countdown - 1 }, () => {
           if (this.state.view === 'student') {
+            console.log('emit thumbvaleu');
             socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
           }
         });
