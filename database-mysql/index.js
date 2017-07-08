@@ -26,7 +26,7 @@ console.log(`db connection:\n Host: ${pool.config.connectionConfig.host}\n Port:
 
 exports.getUserType = function(gmail) {
   return new Promise ((resolve, reject) => {
-    pool.query(`SELECT user_type FROM users WHERE gmail = "${gmail}"`, (err, results) => {
+    pool.query(`SELECT user_type, gmail FROM users WHERE gmail = "${gmail}"`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
@@ -82,7 +82,6 @@ exports.createNewQuestion = function(lectureId, question, keyword) {
             if (err) {
               console.log(err);
             } else {
-              console.log('postInsertKeyword', results);
               pool.query(`INSERT INTO questions (lecture_id, question, keyword_id) VALUES ("${lectureId}", "${question}", "${results.insertId}")`, (err, results) => {
                 if (err) {
                   console.log(err);
@@ -186,9 +185,9 @@ exports.addStudent = function(first, last, gmail) {
   })
 }
 
-exports.getDataForVisualization = function(username) {
+exports.getDataForVisualization = function(email) {
   return new Promise ((resolve, reject) => {
-    pool.query(`SELECT l.name, q.average_thumb_question FROM lectures as l INNER JOIN questions as q on l.id=q.lecture_id AND l.user_id=(SELECT id FROM users where first_name="${username}")`, (err, results) => {
+    pool.query(`SELECT l.name, q.average_thumb_question FROM lectures as l INNER JOIN questions as q on l.id=q.lecture_id AND l.user_id=(SELECT id FROM users where gmail="${email}")`, (err, results) => {
       if (err) {
         console.log(err);
       } else {
@@ -198,6 +197,8 @@ exports.getDataForVisualization = function(username) {
   })
 
 }
+
+//look for lecture name as well.
 
 // test
 

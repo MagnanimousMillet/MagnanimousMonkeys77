@@ -33,7 +33,6 @@ app.get('/login', (req, res) => {
     return db.getUserType(fromGoogle.gmail);
   })
   .then(result => {
-    console.log(result);
     if (result.length === 0) {
       //add user to db
       console.log(`add user to db, ${googleResults.gmail}`);
@@ -44,10 +43,11 @@ app.get('/login', (req, res) => {
     }
   })
   .then(result => {
-    console.log(result);
+    console.log('another result: ', result);
     return db.getUserType(googleResults.gmail);
   })
   .then(result => {
+    console.log('final results', result);
     res.status(201).send(result);
   })
   .catch(err => {
@@ -56,8 +56,9 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/getDataForVisualization', (req, res) => {
-  let name = req.query.username;
-  db.getDataForVisualization(name)
+  let email = req.query.userEmail;
+  console.log(email);
+  db.getDataForVisualization(email)
   .then(results => {
     res.send({ results: results });
   })

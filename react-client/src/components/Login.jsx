@@ -7,13 +7,11 @@ class Login extends React.Component {
     this.state = { tokenId: '' };
   }
 
-  componentDidMount() {
-    console.log(this.props, 'didmount');
-  }
+  // componentDidMount() {
+  //   console.log(this.props, 'didmount');
+  // }
 
   responseGoogle(response) {
-    console.log(this.props);
-    console.log('redirected:', response);
     this.setState({ tokenId: response.tokenId})
   }
 
