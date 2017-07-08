@@ -13,18 +13,6 @@ class Chart extends React.Component {
   }
 
   componentWillMount() {
-    // axios({
-    //   method: 'get',
-    //   url: '/data',
-    //   params: {
-    //     username: this.props.username
-    //   }
-    // })
-    // .then(result => {
-    //   this.setState({
-    //     results: result.data['results']
-    //   });
-    // });
     this.setState({
       results:this.props['data']
     })
