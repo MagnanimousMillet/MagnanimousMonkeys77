@@ -12,30 +12,33 @@ class Chart extends React.Component {
   }
 
   componentWillMount() {
-    axios({
-      method: 'get',
-      url: '/getDataForVisualization',
-      params: {
-        username: this.props.username
-      }
+    // axios({
+    //   method: 'get',
+    //   url: '/getDataForVisualization',
+    //   params: {
+    //     username: this.props.username
+    //   }
+    // })
+    // .then(result => {
+    //   this.setState({
+    //     results: result.data['results']
+    //   });
+    // });
+    this.setState({
+      results:this.props['data']
     })
-    .then(result => {
-      this.setState({
-        results: result.data['results']
-      });
-    });
   }
 
   render () {
     if(this.state.results !== ''){
       var records = this.state.results;
       let data = [{
-        label: '',
+        label: 'nnxbvjsdb',
         values: [{x:'', y:0}]
       }]; 
       records.forEach((item, index) => {
-        data[0].label = item.name;
-        let t = {x: item.name, y: item.average_thumb_question};
+        data[0].label = item.question;
+        let t = {x: item.question, y: item.average_thumb_question};
         if(index == 0) {
           data[0].values[0] = t;  
         }
@@ -45,15 +48,20 @@ class Chart extends React.Component {
         return x+": "+y;
       }
       return (
-        <BarChart
-        data={data}
-        colorByLabel={false}
-        width={1000}
-        height={400}
-        margin={{top: 10, bottom: 50, left: 50, right: 10}}
-        tooltipHtml={tooltipBar}
-        tooltipMode={'element'}
-      />
+        <div id="chartGraph">
+          <BarChart
+          data={data}
+          colorByLabel={false}
+          title=""
+          width={800}
+          height={400}
+          margin={{top: 10, bottom: 50, left: 50, right: 10}}
+          tooltipHtml={tooltipBar}
+          tooltipMode={'element'}
+          xAxis={{innerTickSize: 10, label: "Questions"}}
+          yAxis={{label: "Average ThumbValue"}}
+        />
+      </div>
       )
     } else {
       return (

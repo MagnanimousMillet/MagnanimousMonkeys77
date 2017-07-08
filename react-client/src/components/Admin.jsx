@@ -16,7 +16,7 @@ class Admin extends React.Component {
             <p>This is the admin page.<br></br>From here you can view stored student data or start a new lecture.</p>
           </div>
     			<div
-  					className="btn btn-lg btn-success">
+  					className="btn btn-lg btn-success" onClick={(e) => this.props.changeDataVisualizationView('data')}>
   					Data Visualization Page
   				</div>
         </div>

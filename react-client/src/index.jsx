@@ -7,6 +7,7 @@ import Login from './components/Login.jsx';
 import Student from './components/Student.jsx';
 import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
+import Category from './components/Category.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
 
@@ -27,7 +28,8 @@ class App extends React.Component {
       thumbValue: 2,
       countdown: 30,
       givenName: '',
-      lectureName: ''
+      lectureName: '',
+      data: []
     }
   }
 
@@ -164,9 +166,11 @@ class App extends React.Component {
     })
   }
 
-  changeDataVisualizationView(){
+  changeDataVisualizationView(view, filterData){
+    console.log(filterData);
     this.setState({
-      view: 'data-visualization'
+      view: view,
+      data: filterData
     });
   }
 
@@ -184,9 +188,6 @@ class App extends React.Component {
           </div>
         </nav>
         <div className="container-fluid main">
-            {
-              this.state.view === 'data-visualization' ? <Chart username={this.state.givenName}/> : ''
-            }
             {this.state.view === 'login'
               ? <Login
                   onSignIn={this.onSignIn.bind(this)}
@@ -210,12 +211,13 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   startLecture={this.startLecture.bind(this)}
                   view={this.state.view}
+                  changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
     		      : this.state.view === 'data'
     // CHANGE THIS TO 'CHART' WHEN AVAILABLE
-              ? <Admin 
-                  givenName={this.state.givenName}
-              />
+              ? <Category changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
+              : this.state.view === 'chart'
+              ? <Chart username={this.state.givenName} data={this.state.data}/>
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}

@@ -97,3 +97,8 @@ p {
   align-items: center;
 }
 
+#chartGraph,#list{
+  text-align: center;
+  margin-top: 20px;
+}
+
