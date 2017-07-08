@@ -15,7 +15,7 @@ class Chart extends React.Component {
   componentWillMount() {
     // axios({
     //   method: 'get',
-    //   url: '/getDataForVisualization',
+    //   url: '/data',
     //   params: {
     //     username: this.props.username
     //   }
@@ -49,24 +49,24 @@ class Chart extends React.Component {
         return x+": "+y;
       }
       return (
-      <div className="col-xs-12 text-center">
-        <BarChart
-          data={data}
-          colorByLabel={false}
-          width={1000}
-          height={400}
-          margin={{top: 10, bottom: 50, left: 50, right: 10}}
-          tooltipHtml={tooltipBar}
-          tooltipMode={'element'}
-          xAxis={{innerTickSize: 10, label: "Questions"}}
-          yAxis={{label: "Average ThumbValue"}}
-        />
-        <ButtonGroup vertical block bsClass="row">
-          <Button
-            bsStyle="success"
-            onClick={this.props.backButton}>BACK</Button>
-        </ButtonGroup>
-      </div>
+        <div className="col-xs-12 text-center">
+          <BarChart
+            data={data}
+            colorByLabel={false}
+            width={1000}
+            height={400}
+            margin={{top: 10, bottom: 50, left: 50, right: 10}}
+            tooltipHtml={tooltipBar}
+            tooltipMode={'element'}
+            xAxis={{innerTickSize: 10, label: "Questions"}}
+            yAxis={{label: "Average ThumbValue"}}
+          />
+          <ButtonGroup vertical block bsClass="row">
+            <Button
+              bsStyle="success"
+              onClick={this.props.backButton}>ADMIN</Button>
+          </ButtonGroup>
+        </div>
       )
     } else {
       return (

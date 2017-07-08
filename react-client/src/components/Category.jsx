@@ -1,5 +1,7 @@
 import React from 'react';
-//import Chart from './components/Chart.jsx';
+import ReactDOM from 'react-dom';
+//import axios from 'axios';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class Category extends React.Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class Category extends React.Component {
   render () {
     if(this.state.keywords.length > 0){
       return (
-      	<div id="list">
+      	<div className="col-xs-12 text-center">
           <label>
             Please Select Topic &nbsp;
             <select value={this.state.topic} onChange={this.handleChange.bind(this)}>
@@ -59,6 +61,11 @@ class Category extends React.Component {
           </label>
           &nbsp;
           <input type="submit" value="Submit" onClick={(e) => this.props.changeDataVisualizationView('chart', this.state['questions'])}/>
+          <ButtonGroup vertical block bsClass="row">
+            <Button
+              bsStyle="success"
+              onClick={this.props.backButton}>BACK</Button>
+          </ButtonGroup>
         </div>
       )
     } else {
