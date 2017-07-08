@@ -209,6 +209,7 @@ class App extends React.Component {
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
     		      : this.state.view === 'data'
+    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
               ? <Chart 
                   username={this.state.givenName}
                   userEmail={this.state.userEmail}/>

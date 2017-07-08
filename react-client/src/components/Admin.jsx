@@ -6,7 +6,6 @@ class Admin extends React.Component {
     super(props);
     this.state = {};
   }
-
   onDataVisualiziationClick () {
     this.props.changeDataVisualizationView();
   }
