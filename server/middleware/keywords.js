@@ -9,6 +9,9 @@ var nlu = new NaturalLanguageUnderstandingV1({
   version_date: '2017-02-27'
 });
 
+var capitalize = (string) => {
+  return string.split(' ').map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
 
 var pluckKeywords = (req, res, next) => {
   var results;
@@ -28,7 +31,7 @@ var pluckKeywords = (req, res, next) => {
     console.log('error:', err);
   } else {
     // JSON.stringify(response, null, 2);
-    req.body.keyword = response.keywords[0].text;
+    req.body.keyword = capitalize(response.keywords[0].text);
   }
   next();
   });
