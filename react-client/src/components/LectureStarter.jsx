@@ -52,7 +52,7 @@ class LectureStarter extends React.Component {
             Start Lecture
           </Button>
           <Button
-            bsStyle="success"
+            bsStyle="danger"
             onClick={this.props.backButton}>
             Back Button
           </Button>

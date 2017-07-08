@@ -42,6 +42,10 @@ class App extends React.Component {
     this.setState({ view: 'instructor'})
   }
 
+  backToCategory() {
+    this.setState({ view: 'data'})
+  }
+
   backButton() {
     this.setState({ view: 'admin'})
   }
@@ -114,8 +118,7 @@ class App extends React.Component {
       } else {
         this.setState({ countdown: this.state.countdown - 1 }, () => {
           if (this.state.view === 'student') {
-            console.log('emit thumbvaleu');
-            socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
+            socket.emit('thumbValue', { thumbValue: this.state.thumbValue});
           }
         });
       }
@@ -221,10 +224,13 @@ class App extends React.Component {
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
     		      : this.state.view === 'data'
-    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
-              ? <Category backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
+              ? <Category 
+                  backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
               : this.state.view === 'chart'
-              ? <Chart backButton={this.backButton.bind(this)} username={this.state.givenName} data={this.state.data}/>
+              ? <Chart 
+                  backButton={this.backToCategory.bind(this)} 
+                  username={this.state.givenName} 
+                  data={this.state.data}/>
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
