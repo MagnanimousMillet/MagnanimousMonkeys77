@@ -23,6 +23,9 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.use(bodyParser.json());
 
+app.get('/data', (req, res) => {
+  db.databasePull().then(data => res.send(data));
+});
 
 app.get('/login', (req, res) => {
   var googleResults;
@@ -65,6 +68,8 @@ app.get('/getDataForVisualization', (req, res) => {
 app.post('/lecture', (req, res) => {
   let name = req.query.name;
   let username = req.query.username;
+  console.log(name);
+  console.log(username);
   db.createNewLecture(name,username)
   .then(results => {
     lectureId = results.insertId;
