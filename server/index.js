@@ -23,6 +23,9 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.use(bodyParser.json());
 
+app.get('/data', (req, res) => {
+  db.databasePull().then(data => res.send(data));
+});
 
 app.get('/login', (req, res) => {
   var googleResults;
@@ -65,6 +68,8 @@ app.get('/getDataForVisualization', (req, res) => {
 app.post('/lecture', (req, res) => {
   let name = req.query.name;
   let username = req.query.username;
+  console.log(name);
+  console.log(username);
   db.createNewLecture(name,username)
   .then(results => {
     lectureId = results.insertId;
@@ -147,7 +152,7 @@ io.on('connection', function (socket) {
 
   //recieve the thumb value from the student
   socket.on('thumbValue', data => {
-    if (thumbs) {
+    if (thumbs && socket.username) {
       if (!thumbs.hasStudent(socket.username)) {
         let student = new Student(socket.username, socket.id);
         thumbs.addStudent(student);
@@ -156,7 +161,7 @@ io.on('connection', function (socket) {
       let average = thumbs.getAverageThumbValue();
       io.emit('averageThumbValue', { averageThumbValue: average });
       console.log(`sending averageThumbValue of ${average}`);
-      console.log(`thumb value for ${socket.username} is ${data.thumbValue}`);
+      console.log(`thumb value for ${socket} is ${data.thumbValue}`);
     }
   })
 });
