@@ -6,13 +6,14 @@ class Admin extends React.Component {
     super(props);
     this.state = {};
   }
+
   onDataVisualiziationClick () {
     this.props.changeDataVisualizationView();
   }
 
   render () {
     return (
-    	<div>
+      <div>
         <div className="col-xs-12 text-center">
           <div>
             <p className="navbar">Hi {this.props.givenName}!</p>

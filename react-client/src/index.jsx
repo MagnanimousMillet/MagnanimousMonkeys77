@@ -207,7 +207,7 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                 />
-    		      : this.state.view === 'admin'
+              : this.state.view === 'admin'
               ? <Admin
                   renderInstructor={this.renderInstructor.bind(this)}
                   givenName={this.state.givenName}
@@ -215,8 +215,7 @@ class App extends React.Component {
                   view={this.state.view}
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
-    		      : this.state.view === 'data'
-    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
+              : this.state.view === 'data'
               ? <Chart 
                   username={this.state.givenName}
                   userEmail={this.state.userEmail}
