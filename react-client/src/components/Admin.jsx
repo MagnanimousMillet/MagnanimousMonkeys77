@@ -1,38 +1,38 @@
 import React from 'react';
 import LectureStarter from './LectureStarter.jsx';
-
+import { Button, ButtonGroup } from 'react-bootstrap';
 class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   onDataVisualiziationClick () {
     this.props.changeDataVisualizationView();
   }
 
   render () {
     return (
-    	<div>
+      <div>
         <div className="col-xs-12 text-center">
           <div>
             <p className="navbar">Hi {this.props.givenName}!</p>
             <p>This is the admin page.<br></br>From here you can view stored student data or start a new lecture.</p>
           </div>
-    			<div
-            onClick={this.onDataVisualiziationClick.bind(this)}
-  					className="btn btn-lg btn-success">
-  					Data Visualization Page
-  				</div>
+          <ButtonGroup vertical block bsClass="row">
+            <Button 
+              bsStyle="success"
+              onClick={this.props.renderInstructor}>Begin a New Lecture
+            </Button>
+            <Button
+              bsStyle="success"
+              onClick={this.onDataVisualiziationClick.bind(this)}>
+             Data Visualization Page
+            </Button>
+          </ButtonGroup>
         </div>
-        <LectureStarter
-          startLecture={this.props.startLecture}
-        />
       </div>
     )
   }
 }
-
 export default Admin;
-
-
-//  					onClick={this.onThumbsCheck.bind(this)}>

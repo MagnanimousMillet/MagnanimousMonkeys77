@@ -24,6 +24,7 @@ class Instructor extends React.Component {
           ? <LectureStarter
               startLecture={this.props.startLecture} 
               username={this.props.givenName}
+              backButton={this.props.backButton}
             />
           : this.props.lectureStatus === 'lectureStarted'
           ? <LectureButtons

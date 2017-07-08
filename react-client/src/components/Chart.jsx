@@ -17,7 +17,7 @@ class Chart extends React.Component {
       method: 'get',
       url: '/getDataForVisualization',
       params: {
-        username: this.props.userEmail
+        useremail: this.props.userEmail
       }
     })
     .then(result => {
@@ -46,7 +46,7 @@ class Chart extends React.Component {
         return x+": "+y;
       }
       return (
-      <div>
+      <div className="col-xs-12 text-center">
         <BarChart
           data={data}
           colorByLabel={false}
@@ -56,8 +56,10 @@ class Chart extends React.Component {
           tooltipHtml={tooltipBar}
           tooltipMode={'element'}
         />
-        <ButtonGroup vertical block>
-          <Button>BACK</Button>
+        <ButtonGroup vertical block bsClass="row">
+          <Button
+            bsStyle="success"
+            onClick={this.props.backButton}>BACK</Button>
         </ButtonGroup>
       </div>
       )
