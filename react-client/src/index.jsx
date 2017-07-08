@@ -29,12 +29,21 @@ class App extends React.Component {
       countdown: 30,
       givenName: '',
       lectureName: '',
-      data: []
+      data: [],
+      userEmail: ''
     }
   }
 
   componentDidMount() {
     this.setState({ view: 'login' });
+  }
+
+  renderInstructor() {
+    this.setState({ view: 'instructor'})
+  }
+
+  backButton() {
+    this.setState({ view: 'admin'})
   }
 
   onSignIn(googleUser) {
@@ -50,7 +59,7 @@ class App extends React.Component {
       if (result.data[0].user_type === 'STUDENT') {
         this.setState({ view: 'student'});
       } else if (result.data[0].user_type === 'INSTRUCTOR') {
-        this.setState({ view: 'admin'});
+        this.setState({ view: 'admin', userEmail: result.data[0].gmail});
       }
       this.setState({ givenName: googleUser.profileObj.givenName })
       socket.emit('username', { username: googleUser.profileObj.email })
@@ -65,8 +74,7 @@ class App extends React.Component {
     this.setState({
       lectureStatus: 'lectureStarted',
       lectureId: lectureId,
-      lectureName: lectureName,
-      view: 'instructor'
+      lectureName: lectureName
     })
   }
 
@@ -78,7 +86,6 @@ class App extends React.Component {
 
   endLecture () {
     let lectureId = this.state.lectureId;
-    console.log(lectureId);
     axios({
       method: 'post',
       url: '/endLecture',
@@ -106,7 +113,6 @@ class App extends React.Component {
         if (this.state.view === 'instructor') this.interruptThumbsCheck();
       } else {
         this.setState({ countdown: this.state.countdown - 1 }, () => {
-          console.log('this.state.countdown', this.state.countdown);
           if (this.state.view === 'student') {
             socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
           }
@@ -135,7 +141,6 @@ class App extends React.Component {
   }
 
   interruptThumbsCheck () {
-    console.log('INTERRUPT');
     axios({
       method: 'post',
       url: '/interrupt',
@@ -206,8 +211,9 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                 />
-    		      : this.state.view === 'admin'
-              ? <Admin 
+              : this.state.view === 'admin'
+              ? <Admin
+                  renderInstructor={this.renderInstructor.bind(this)}
                   givenName={this.state.givenName}
                   startLecture={this.startLecture.bind(this)}
                   view={this.state.view}
@@ -215,12 +221,13 @@ class App extends React.Component {
               />
     		      : this.state.view === 'data'
     // CHANGE THIS TO 'CHART' WHEN AVAILABLE
-              ? <Category changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
+              ? <Category backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
               : this.state.view === 'chart'
-              ? <Chart username={this.state.givenName} data={this.state.data}/>
+              ? <Chart backButton={this.backButton.bind(this)} username={this.state.givenName} data={this.state.data}/>
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
+                  backButton={this.backButton.bind(this)}
                   lectureId={this.state.lectureId}
                   lectureStatus={this.state.lectureStatus}
                   startLecture={this.startLecture.bind(this)}
@@ -233,7 +240,8 @@ class App extends React.Component {
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
-                />}
+                />
+              }
         </div>
       </div>
     )

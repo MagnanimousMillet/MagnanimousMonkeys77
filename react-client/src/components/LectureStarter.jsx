@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class LectureStarter extends React.Component {
   constructor(props) {
@@ -42,13 +43,18 @@ class LectureStarter extends React.Component {
             onChange={this.handleChange.bind(this)}
           />
         </div>
-        <div className="col-xs-12 text-center">
-          <div
-            className="btn btn-lg btn-success"
+        <ButtonGroup vertical block bsClass="row">
+          <Button
+            bsStyle="success"
             onClick={this.onLectureStart.bind(this)}>
             Start Lecture
-          </div>
-        </div>
+          </Button>
+          <Button
+            bsStyle="success"
+            onClick={this.props.backButton}>
+            Back Button
+          </Button>
+        </ButtonGroup>
       </div>
     )
   }

@@ -63,21 +63,14 @@ p {
 .btn-mic {
   margin-top: 10px;
   cursor: pointer;
-  height: 20% !important;
-  width: 20% !important;
+  height: 10% !important;
+  width: 10% !important;
 }
 
-.recording-screen {
-  position:fixed;
-  top: 100%;
-  left: 50%;
-  width:30em;
-  height:18em;
+.recording-mic {
+  margin-top: 5px;
   color: red;
   font-style: bold;
-  margin-top: -9em; 
-  margin-left: -15em;
-  background-color: #00ffffff;
 }
 
 .tooltip {
