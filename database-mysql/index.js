@@ -8,7 +8,7 @@ var pool  = mysql.createPool(process.env.DATABASE_URL || {
   // database : process.env.DB_NAME || 'thumbscheck'
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password :  '',
   database : 'thumbscheck'
 });
 

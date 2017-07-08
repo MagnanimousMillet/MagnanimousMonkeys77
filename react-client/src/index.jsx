@@ -7,6 +7,7 @@ import Login from './components/Login.jsx';
 import Student from './components/Student.jsx';
 import Admin from './components/Admin.jsx';
 import Instructor from './components/Instructor.jsx';
+import Category from './components/Category.jsx';
 import Chart from './components/Chart.jsx';
 import axios from 'axios';
 
@@ -28,6 +29,7 @@ class App extends React.Component {
       countdown: 30,
       givenName: '',
       lectureName: '',
+      data: [],
       userEmail: ''
     }
   }
@@ -169,9 +171,11 @@ class App extends React.Component {
     })
   }
 
-  changeDataVisualizationView(){
+  changeDataVisualizationView(view, filterData){
+    console.log(filterData);
     this.setState({
-      view: 'data'
+      view: view,
+      data: filterData
     });
   }
 
@@ -215,13 +219,12 @@ class App extends React.Component {
                   view={this.state.view}
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
-              : this.state.view === 'data'
-              ? <Chart 
-                  username={this.state.givenName}
-                  userEmail={this.state.userEmail}
-                  backButton={this.backButton.bind(this)}/>
-              : this.state.view === 'instructor'
-              ?<Instructor
+    		      : this.state.view === 'data'
+    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
+              ? <Category backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
+              : this.state.view === 'chart'
+              ? <Chart backButton={this.backButton.bind(this)} username={this.state.givenName} data={this.state.data}/>
+              : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}
                   backButton={this.backButton.bind(this)}
@@ -238,7 +241,6 @@ class App extends React.Component {
                   lectureName={this.state.lectureName}
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
                 />
-                : ''
               }
         </div>
       </div>

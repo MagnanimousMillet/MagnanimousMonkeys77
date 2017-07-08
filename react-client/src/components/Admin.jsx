@@ -7,9 +7,6 @@ class Admin extends React.Component {
     this.state = {};
   }
 
-  onDataVisualiziationClick () {
-    this.props.changeDataVisualizationView();
-  }
 
   render () {
     return (
@@ -26,10 +23,10 @@ class Admin extends React.Component {
             </Button>
             <Button
               bsStyle="success"
-              onClick={this.onDataVisualiziationClick.bind(this)}>
+              onClick={(e) => this.props.changeDataVisualizationView('data')}>
              Data Visualization Page
             </Button>
-          </ButtonGroup>
+          </ButtonGroup>        
         </div>
       </div>
     )
