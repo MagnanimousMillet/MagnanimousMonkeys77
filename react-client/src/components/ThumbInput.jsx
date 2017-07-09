@@ -36,7 +36,7 @@ class ThumbInput extends React.Component {
               defaultValue={2}
             />
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-8">
             <ThumbVisualization
               thumbValue={this.props.thumbValue}
             />
