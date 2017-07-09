@@ -86,13 +86,14 @@ app.use('/checkthumbs', keywords);
 app.post('/checkthumbs', (req, res) => {
   let lecture = req.query.lecture_id || 0;
   var question = req.body.question;
+  console.log(question);
   var keyword = req.body.keyword;
   db.createNewQuestion(lecture, question, keyword)
   .then(results => {
     questionId = results.insertId;
     thumbs = new ThumbsData(lectureId, questionId);
     //Emit the new question to students here
-    io.emit('checkingThumbs', { questionId: questionId });
+    io.emit('checkingThumbs', { questionId: questionId, questionAsked: question });
     //This will add thumbsdata in the db after the question ends
 
     // setTimeout(() => {

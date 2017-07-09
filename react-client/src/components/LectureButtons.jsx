@@ -76,7 +76,7 @@ class LectureButtons extends React.Component {
 	      lecture_id: this.props.lectureId
 	    }
 	  }).then((response) => {
-  		this.props.startThumbsCheck(response.data.questionId);
+  		this.props.startThumbsCheck(response.data.questionId, this.state.question);
 	  }).catch((error) => {
 	  	console.log(error);
 	  })

@@ -30,7 +30,8 @@ class App extends React.Component {
       givenName: '',
       lectureName: '',
       data: [],
-      userEmail: ''
+      userEmail: '',
+      questionAsked: '',
     }
   }
 
@@ -137,10 +138,11 @@ class App extends React.Component {
     }
   }
 
-  startThumbsCheck (questionId) {
+  startThumbsCheck (questionId, questionAsked) {
     this.setState({
       lectureStatus: 'checkingThumbs',
-      questionId: questionId
+      questionId: questionId,
+      questionAsked: questionAsked
     }, this.setCountdownInterval);
   }
 
@@ -214,6 +216,7 @@ class App extends React.Component {
                   endLectureStudent={this.endLectureStudent.bind(this)}
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
+                  questionAsked={this.state.questionAsked}
                 />
               : this.state.view === 'admin'
               ? <Admin

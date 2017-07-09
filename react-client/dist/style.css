@@ -73,6 +73,10 @@ p {
   font-style: bold;
 }
 
+Jumbotron {
+  text-align: center !important;
+}
+
 .tooltip {
   width: 10%;
   height: 10%;
