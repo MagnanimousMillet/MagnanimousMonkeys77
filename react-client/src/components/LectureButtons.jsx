@@ -68,7 +68,6 @@ class LectureButtons extends React.Component {
 
   onThumbsCheck () {
   	console.log('onThumbsCheck is being called');
-  	console.log('this.props.lectureId', this.props.lectureId);
     axios({
 	    method: 'post',
 	    url: '/checkthumbs',
@@ -77,7 +76,7 @@ class LectureButtons extends React.Component {
 	      lecture_id: this.props.lectureId
 	    }
 	  }).then((response) => {
-  		this.props.startThumbsCheck(response.data.questionId);
+  		this.props.startThumbsCheck(response.data.questionId, this.state.question);
 	  }).catch((error) => {
 	  	console.log(error);
 	  })
@@ -114,7 +113,7 @@ class LectureButtons extends React.Component {
                   Check Thumbs
 								</Button>
 								<Button
-                  bsStyle="success"
+                  bsStyle="danger"
 									onClick={this.props.endLecture}>
                   End Lecture
 								</Button>

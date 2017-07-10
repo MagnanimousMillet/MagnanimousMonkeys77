@@ -58,7 +58,7 @@ class Category extends React.Component {
   render () {
     if(this.state.keywords.length > 0){
       return (
-      	<div className="col-xs-12 text-center">
+        <div className="col-xs-12 text-center">
           <label>
             Please Select Topic &nbsp;
             <select id="topicVal" onChange={this.handleChange.bind(this)}>
@@ -72,8 +72,8 @@ class Category extends React.Component {
           <input type="submit" value="Submit" onClick={this.filterData.bind(this)}/>
           <ButtonGroup vertical block bsClass="row">
             <Button
-              bsStyle="success"
-              onClick={this.props.backButton}>BACK</Button>
+              bsStyle="danger"
+              onClick={this.props.backButton}>Back</Button>
           </ButtonGroup>
         </div>
       )

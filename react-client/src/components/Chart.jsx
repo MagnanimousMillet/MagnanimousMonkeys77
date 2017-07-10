@@ -51,8 +51,8 @@ class Chart extends React.Component {
           />
           <ButtonGroup vertical block bsClass="row">
             <Button
-              bsStyle="success"
-              onClick={this.props.backButton}>ADMIN</Button>
+              bsStyle="danger"
+              onClick={this.props.backButton}>Back</Button>
           </ButtonGroup>
         </div>
       )

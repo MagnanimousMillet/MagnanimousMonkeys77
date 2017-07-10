@@ -29,8 +29,9 @@ var pluckKeywords = (req, res, next) => {
   nlu.analyze(parameters, function(err, response) {
   if (err) {
     console.log('error:', err);
-  } else {
+  } else if (response.keywords[0]) {
     // JSON.stringify(response, null, 2);
+
     req.body.keyword = capitalize(response.keywords[0].text);
   }
   next();

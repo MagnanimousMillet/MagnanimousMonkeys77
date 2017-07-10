@@ -30,7 +30,8 @@ class App extends React.Component {
       givenName: '',
       lectureName: '',
       data: [],
-      userEmail: ''
+      userEmail: '',
+      questionAsked: '',
     }
   }
 
@@ -40,6 +41,10 @@ class App extends React.Component {
 
   renderInstructor() {
     this.setState({ view: 'instructor'})
+  }
+
+  backToCategory() {
+    this.setState({ view: 'data'})
   }
 
   backButton() {
@@ -114,8 +119,7 @@ class App extends React.Component {
       } else {
         this.setState({ countdown: this.state.countdown - 1 }, () => {
           if (this.state.view === 'student') {
-            console.log('emit thumbvaleu');
-            socket.emit('thumbValue', { thumbValue: this.state.thumbValue });
+            socket.emit('thumbValue', { thumbValue: this.state.thumbValue});
           }
         });
       }
@@ -134,10 +138,11 @@ class App extends React.Component {
     }
   }
 
-  startThumbsCheck (questionId) {
+  startThumbsCheck (questionId, questionAsked) {
     this.setState({
       lectureStatus: 'checkingThumbs',
-      questionId: questionId
+      questionId: questionId,
+      questionAsked: questionAsked
     }, this.setCountdownInterval);
   }
 
@@ -211,6 +216,7 @@ class App extends React.Component {
                   endLectureStudent={this.endLectureStudent.bind(this)}
                   givenName={this.state.givenName}
                   lectureName={this.state.lectureName}
+                  questionAsked={this.state.questionAsked}
                 />
               : this.state.view === 'admin'
               ? <Admin
@@ -221,10 +227,13 @@ class App extends React.Component {
                   changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}
               />
     		      : this.state.view === 'data'
-    // CHANGE THIS TO 'CHART' WHEN AVAILABLE
-              ? <Category backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
+              ? <Category 
+                  backButton={this.backButton.bind(this)} changeDataVisualizationView={this.changeDataVisualizationView.bind(this)}/>
               : this.state.view === 'chart'
-              ? <Chart backButton={this.backButton.bind(this)} username={this.state.givenName} data={this.state.data}/>
+              ? <Chart 
+                  backButton={this.backToCategory.bind(this)} 
+                  username={this.state.givenName} 
+                  data={this.state.data}/>
               : <Instructor
                   interrupt={this.interruptThumbsCheck.bind(this)}
                   thumbValue={this.state.thumbValue}

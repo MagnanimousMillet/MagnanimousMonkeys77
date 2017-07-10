@@ -31,5 +31,6 @@ react-client/dist/bundle.js
 node_modules/
 bower_components/
 server/config/
+*.svg
 
 server/helpers/watsonCredentials.js

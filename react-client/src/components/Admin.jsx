@@ -13,18 +13,17 @@ class Admin extends React.Component {
       <div>
         <div className="col-xs-12 text-center">
           <div>
-            <p className="navbar">Hi {this.props.givenName}!</p>
-            <p>This is the admin page.<br></br>From here you can view stored student data or start a new lecture.</p>
+          Hi {this.props.givenName}!
           </div>
           <ButtonGroup vertical block bsClass="row">
             <Button 
               bsStyle="success"
-              onClick={this.props.renderInstructor}>Begin a New Lecture
+              onClick={this.props.renderInstructor}>Begin a new Lecture
             </Button>
             <Button
-              bsStyle="success"
+              bsStyle="primary"
               onClick={(e) => this.props.changeDataVisualizationView('data')}>
-             Data Visualization Page
+             View Data
             </Button>
           </ButtonGroup>        
         </div>

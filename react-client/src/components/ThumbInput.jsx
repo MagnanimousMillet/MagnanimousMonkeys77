@@ -2,6 +2,7 @@ import React from 'react';
 import ThumbVisualization from './ThumbVisualization.jsx';
 import Countdown from './Countdown.jsx';
 import Slider from 'rc-slider';
+import { Jumbotron } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 
 class ThumbInput extends React.Component {
@@ -10,15 +11,19 @@ class ThumbInput extends React.Component {
     this.state = {};
   }
 
+        //   <div className="row">
+        //   <div className="col-xs-12 text-center heading">
+        //     QUESTION: {this.props.questionAsked}
+        //   </div>
+        // </div>
+
 
   render () {
     return (
-      <div className="col-xs-12">
-        <div class="row">
-          <div className="col-xs-12 text-center heading">
-  					Input your thumb
-          </div>
-				</div>
+      <div className="col-xs-12 text-center">
+        <Jumbotron>
+          <h1>Question: {this.props.questionAsked} </h1>
+        </Jumbotron>
         <div className="row student">
           <div className="col-xs-2" style={{height: "200px", marginLeft: "6px"}}>
             <Slider
@@ -31,7 +36,7 @@ class ThumbInput extends React.Component {
               defaultValue={2}
             />
           </div>
-          <div className="col-xs-4">
+          <div className="col-xs-8">
             <ThumbVisualization
               thumbValue={this.props.thumbValue}
             />
